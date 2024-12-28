@@ -26,12 +26,12 @@
                                 <form action="controller/ControllerValidateUser.php" method="post">
                                     <div data-mdb-input-init class="form-outline form-white mb-4">
 
-                                        <input type="text" id="user" class="form-control form-control-lg" />
+                                        <input type="text" id="user" name="user" class="form-control form-control-lg" />
                                         <label class="form-label" for="user">Username</label>
                                     </div>
 
                                     <div data-mdb-input-init class="form-outline form-white mb-4">
-                                        <input type="password" id="password"
+                                        <input type="password" id="password" name="password"
                                             class="form-control form-control-lg" />
                                         <label class="form-label" for="password">Password</label>
                                     </div>
