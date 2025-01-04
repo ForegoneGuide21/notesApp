@@ -1,0 +1,14 @@
+.custom-margin {
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+    margin-top: 10px !important;
+}
+
+
+a {
+    text-decoration: none !important;
+}
+
+.appTtl {
+    font-size: xx-large ;
+}
