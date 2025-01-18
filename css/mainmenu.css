@@ -12,3 +12,41 @@ a {
 .appTtl {
     font-size: xx-large ;
 }
+
+.searchbtn {
+    background: url('../img/search.png') no-repeat left center;
+    background-size: 25px !important;
+    border: none !important;
+    cursor: pointer !important;
+    width: 80px !important;
+    height: 40px !important;
+
+}
+
+@media (max-width: 600px) {
+    .searchbtn {
+        background-size: 20px !important;
+        width: 30px !important;
+        height: 30px !important;
+    }
+}
+.searchbar {
+    outline: none !important;
+    border: 0 !important;
+}
+
+.searchbar[type="search"]:focus {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+#bar {
+    border: 1px solid black !important;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+/*
+search bar border
+padding+margin no work
+*/
