@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div class="container-fluid custom-margin">
+    <div class="container custom-margin">
         <div class="row">
             <div class="col-2 text-center">
                 <div class="border border-dark">
@@ -27,11 +27,11 @@
                 <div class="container" id="bar">
                     <form action="" method="post">
                         <div class="row">
-                            <div class="col-10" style="margin-right: -24; !important; background-color: red !important;"  >
+                            <div class="col-10" >
                                 <input type="search" class="form-control searchbar" id="search1" placeholder="Search" />
                             </div>
-                            <div class="col-2" style="background-color: green !important;">
-                                <input type="submit" class="searchbtn" id="searchBTN" value="">
+                            <div class="col-2">
+                                <input type="submit" class="searchbtn end-0" id="searchBTN" value="">
                             </div>
 
                         </div>

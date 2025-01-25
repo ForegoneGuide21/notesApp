@@ -1,38 +1,48 @@
+/*
+V1
 .custom-margin {
     padding-left: 50px !important;
     padding-right: 50px !important;
     margin-top: 10px !important;
 }
+*/
 
-
+.custom-margin { 
+    margin: 10px 0px 0px 0px ;
+}
 a {
     text-decoration: none !important;
 }
 
 .appTtl {
-    font-size: xx-large ;
+    font-size: xx-large;
 }
 
 .searchbtn {
-    background: url('../img/search.png') no-repeat left center;
+    background: url('../img/search.png') no-repeat right center;
     background-size: 25px !important;
     border: none !important;
     cursor: pointer !important;
-    width: 80px !important;
+    width: 40px !important;
     height: 40px !important;
-
+    background-color: aqua;
+    margin-left: 80px !important;
 }
 
 @media (max-width: 600px) {
     .searchbtn {
         background-size: 20px !important;
         width: 30px !important;
-        height: 30px !important;
+        height: 40px !important;
+       
     }
 }
+
 .searchbar {
     outline: none !important;
     border: 0 !important;
+    width: 840px !important;
+    background-color: green !important;
 }
 
 .searchbar[type="search"]:focus {
@@ -43,10 +53,12 @@ a {
 
 #bar {
     border: 1px solid black !important;
-    padding-top: 0 !important;
-    margin-top: 0 !important;
+    height: 40px !important;
+    padding-right: 30px !important;
+    display: flex !important;
+    width: 100%;
 }
+
 /*
-search bar border
-padding+margin no work
+fix col size
 */
