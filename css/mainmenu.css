@@ -59,6 +59,8 @@ a {
 }
 
 #displayUser {
+    padding-top: 8 !important;
+    padding-bottom: 0 !important;
     text-align: center !important;
     border: 1px solid black !important;
 }
@@ -71,6 +73,11 @@ a {
 @ = method
 */
 
+its centered now
+
 /*
-put text into center center of box
+put text into center center of box:
+make box smaller by going, width: ..... !important;
+or move text using padding: ......!imporant;
+also already done
 */
