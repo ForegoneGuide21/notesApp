@@ -25,11 +25,10 @@ a {
     cursor: pointer !important;
     width: 40px !important;
     height: 40px !important;
-    background-color: aqua;
-    margin-left: 80px !important;
+    margin-left: 70px !important;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 10px) {
     .searchbtn {
         background-size: 20px !important;
         width: 30px !important;
@@ -42,7 +41,6 @@ a {
     outline: none !important;
     border: 0 !important;
     width: 840px !important;
-    background-color: green !important;
 }
 
 .searchbar[type="search"]:focus {
@@ -57,8 +55,22 @@ a {
     padding-right: 30px !important;
     display: flex !important;
     width: 100%;
+    border-radius: 5px !important;
 }
 
+#displayUser {
+    text-align: center !important;
+    border: 1px solid black !important;
+}
+
+
+
 /*
-fix col size
+# = id
+. = class
+@ = method
+*/
+
+/*
+put text into center center of box
 */
