@@ -41,7 +41,7 @@ a {
     outline: none !important;
     border: 0 !important;
     width: 840px !important;
-}
+}                                           
 
 .searchbar[type="search"]:focus {
     outline: none !important;
@@ -65,19 +65,33 @@ a {
     border: 1px solid black !important;
 }
 
+button#zoomButton {
+    background: none !important;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    outline: none;
+}
+
+button#zoomButton img {
+    display: block;
+}
+
+
 
 
 /*
 # = id
 . = class
 @ = method
+
+
+border: none;
+    background: none;
+    color: inherit;
+    padding: 0;
+    margin: 0;
+    cursor: inherit;
 */
 
-its centered now
-
-/*
-put text into center center of box:
-make box smaller by going, width: ..... !important;
-or move text using padding: ......!imporant;
-also already done
-*/

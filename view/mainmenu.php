@@ -46,18 +46,23 @@ if ($_SESSION["user"] == "" && $_SESSION["pass"] == "") {
                     </div>
                 </div>
                 <div class="col-2" id="displayUser">
-                    <h3>Welcome 
-                    <?php
-                    echo $_SESSION['user'];
-                    ?>
+                    <h3>Welcome
+                        <?php
+                        echo $_SESSION['user'];
+                        ?>
                     </h3>
                 </div>
             </div>
             <div class="row">
-                <div class="col-4" style="background-color:yellow">
-                    create
+                <div class="col-2">
+                    <div id="zoomContent">
+                        <button id="zoomButton">
+                            <img src="../img/notesCreate.png" alt="notesCreate" height="100" width="100">
+
+                        </button>
+                    </div>
                 </div>
-                <div class="col-8" style="background-color:orange">
+                <div class="col-10" style="background-color:orange">
                     checklist
                 </div>
             </div>
