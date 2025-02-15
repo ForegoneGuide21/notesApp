@@ -1,0 +1,16 @@
+#zoomContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 1s ease-in-out;
+}
+
+#zoomButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: transform 1s ease-in-out;
+}
+
+#zoomContent.zoomed {
+    transform: scale(6) translate(50%, 50%);
+}

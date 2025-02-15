@@ -57,6 +57,7 @@ class ModelUser
         }
     }
 
+
 /*
     public function _ModelUserResistration($name, $last_name, $username, $password)
     {

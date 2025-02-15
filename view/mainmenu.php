@@ -12,6 +12,8 @@ if ($_SESSION["user"] == "" && $_SESSION["pass"] == "") {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>notesApp</title>
         <link rel="stylesheet" href="../css/mainmenu.css" type="text/css">
+        <link rel="stylesheet" href="../css/zoom.css" type="text/css">
+
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
@@ -40,7 +42,6 @@ if ($_SESSION["user"] == "" && $_SESSION["pass"] == "") {
                                 <div class="col-2">
                                     <input type="submit" class="searchbtn end-0" id="searchBTN" value="">
                                 </div>
-
                             </div>
                         </form>
                     </div>
@@ -57,8 +58,8 @@ if ($_SESSION["user"] == "" && $_SESSION["pass"] == "") {
                 <div class="col-2">
                     <div id="zoomContent">
                         <button id="zoomButton">
-                            <img src="../img/notesCreate.png" alt="notesCreate" height="100" width="100">
-
+                            <img src="../img/notesCreate.png" alt="notesCreate" height="200" width="200">
+                            <script src="../JS/zoom.js"></script>
                         </button>
                     </div>
                 </div>
