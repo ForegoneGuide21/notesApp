@@ -13,6 +13,7 @@ else{
     foreach($data as $row){
         $_SESSION['user'] = $row['username'];
         $_SESSION['pass'] = $row['password'];
+        $_SESSION['id'] = $row['iduser'];
     }
     
     if(count($data) == 0){

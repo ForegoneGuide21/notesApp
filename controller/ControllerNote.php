@@ -11,4 +11,13 @@ class ControllerNote{
             throw $e;
         }
     }
+
+    public function _ControllerRetrieveNoteMng($userId): array{
+        try {
+            $obj = new ModelNote();
+            return $obj->_RetrieveNoteMng($userId);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
 }

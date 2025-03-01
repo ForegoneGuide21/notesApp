@@ -56,12 +56,15 @@ if ($_SESSION["user"] == "" && $_SESSION["pass"] == "") {
             </div>
             <div class="row">
                 <div class="col-2">
-                    <div id="zoomContent">
-                        <button id="zoomButton">
-                            <img src="../img/notesCreate.png" alt="notesCreate" height="200" width="200">
+                    <form action="noteEditor.php" method="post">
+                        <div id="zoomContent">
+                        <input type="hidden" name="iduser" id="iduser" value="<?php echo $_SESSION['id']; ?>">  
+                            <input type="submit" id="zoomButton">
+                                <img src="../img/notesCreate.png" alt="notesCreate" height="200" width="200">
+                            </input>
                             <script src="../JS/zoom.js"></script>
-                        </button>
-                    </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-10" style="background-color:orange">
                     checklist
