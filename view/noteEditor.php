@@ -22,7 +22,7 @@ $listofInfo = $noteController->_ControllerCreateNote($_POST['iduser']);
         <div class="row">
             <div class="col-sm-4">
                 <?php
-                echo "" . $row["user_iduser"] . "";
+                echo "" . $row["note_idnotes"] . "";
                 ?>
             </div>
         </div>

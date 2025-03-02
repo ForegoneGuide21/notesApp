@@ -15,15 +15,18 @@ class ModelNote
     // Step 1: Create the note
     try {
         $obj = connection::singleton();
-        $query = $obj->prepare('INSERT INTO note (id, title, description, date) VALUES (NULL, ?, ?, ?)');
+
+        //OBS 1
+        //We put the wrong name of the id name and the order was wrong
+        $query = $obj->prepare('INSERT INTO note (idnotes, title, created, notescontent) VALUES (NULL, ?, ?, ?)');
         
         $title = "untitled";
         $description = "untitled";
         $date = date("Y-m-d H:i:s");
 
         $query->bindParam(1, $title);
-        $query->bindParam(2, $description);
-        $query->bindParam(3, $date);
+        $query->bindParam(2, $date);
+        $query->bindParam(3, $description);
 
         $query->execute();
         $query = null;
@@ -34,7 +37,9 @@ class ModelNote
 
     // Step 2: Retrieve the last inserted note ID
     try {
-        $query = $obj->prepare('SELECT id FROM note ORDER BY id DESC LIMIT 1;');
+        //OBS 2
+        //We put the wrong name of the id name for notes
+        $query = $obj->prepare('SELECT idnotes FROM note ORDER BY idnotes DESC LIMIT 1;');
         $query->execute();
 
         $lastNote = $query->fetch(PDO::FETCH_ASSOC);
@@ -44,7 +49,9 @@ class ModelNote
             throw new Exception("Failed to retrieve last inserted note ID.");
         }
 
-        $idnotes = $lastNote['id'];
+        //OBS 3
+        //We put the wrong name of the id name
+        $idnotes = $lastNote['idnotes'];
 
     } catch (Exception $e) {
         throw new Exception("Error retrieving note ID: " . $e->getMessage());
@@ -69,7 +76,7 @@ class ModelNote
             SELECT * 
             FROM noteMng AS nm 
             INNER JOIN userT AS u ON nm.user_iduser = u.iduser 
-            INNER JOIN note AS n ON nm.note_idnotes = n.id
+            INNER JOIN note AS n ON nm.note_idnotes = n.idnotes
             WHERE nm.note_idnotes = ? AND nm.user_iduser = ?'
         );
 
