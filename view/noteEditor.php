@@ -3,7 +3,13 @@ session_start();
 
 include_once '../controller/ControllerNote.php';
 $noteController = new ControllerNote();
-$listofInfo = $noteController->_ControllerCreateNote($_POST['iduser']);
+
+
+//FUTURE FIX: MAKE SURE TO USE A SUB CONTROLLER TO CONTROLL THE REGITARION BECAUSE EACH REFRESH MAKE A NEW NOTE AND IT WILL BE A MESS
+$listofInfo = $noteController->_ControllerCreateNote($_POST['userid']);
+
+
+
 
 ?>
 <html lang="en">
@@ -15,13 +21,14 @@ $listofInfo = $noteController->_ControllerCreateNote($_POST['iduser']);
 </head>
 
 <body>
-    <h1>Note Editor</h1>
+    <h1  style="color: red;">Note Editor</h1>
     <?php
     foreach ($listofInfo as $row) {
         ?>
         <div class="row">
             <div class="col-sm-4">
                 <?php
+                echo "" . $row["note_idnotes"] . "";
                 echo "" . $row["user_iduser"] . "";
                 ?>
             </div>

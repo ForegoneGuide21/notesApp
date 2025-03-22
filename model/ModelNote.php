@@ -88,6 +88,39 @@ class ModelNote
     }
 }
 
+    // Function to retrieve notes information depending on the id notes
+    public function _ModelGetNoteInfo($idnote) {
+        try {
+            //Connect to the database
+            $obj = connection::singleton();
+
+            //Prepare the query
+            $query = $obj->prepare('SELECT * FROM note WHERE idnotes = ?;');
+
+            //Bind the parameters
+            $query->bindParam(1, $idnote);
+
+            //Execute the query
+            $query->execute();
+
+            //Fetch the results
+            $vector = $query->fetchAll();
+
+            //Close the connection
+            $query = null;
+
+            //Return the results
+            return $vector;
+
+        } catch (Exception $e) {
+            throw new Exception("Error retrieving note details: " . $e->getMessage());
+        }
+    }
+
+
+
+    
+
 
     
 }

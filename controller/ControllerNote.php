@@ -12,10 +12,10 @@ class ControllerNote{
         }
     }
 
-    public function _ControllerRetrieveNoteMng($userId): array{
+    public function _ControllerGetNoteInfo($idnote): array{
         try {
             $obj = new ModelNote();
-            return $obj->_RetrieveNoteMng($userId);
+            return $obj->_ModelGetNoteInfo($idnote);
         } catch (Exception $e) {
             throw $e;
         }
