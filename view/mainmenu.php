@@ -21,7 +21,7 @@ if ($_SESSION["user"] == "" && $_SESSION["pass"] == "") {
     </head>
 
     <body>
-        <div class="container custom-margin">
+        <div class="container-fluid custom-margin">
             <div class="row">
                 <div class="col-2 text-center">
                     <div class="border border-dark">
@@ -32,15 +32,15 @@ if ($_SESSION["user"] == "" && $_SESSION["pass"] == "") {
                         </a>
                     </div>
                 </div>
-                <div class="col-8">
-                    <div class="container" id="bar">
+                <div class="col-md-8 col-12 mt-2 mt-md-0">
+                    <div class="container-fluid" id="bar">
                         <form action="" method="post">
                             <div class="row">
                                 <div class="col-10">
                                     <input type="search" class="form-control searchbar" id="search1" placeholder="Search" />
                                 </div>
                                 <div class="col-2">
-                                    <input type="submit" class="searchbtn end-0" id="searchBTN" value="">
+                                    <input type="submit" class="searchbtn" id="searchBTN" value="">
                                 </div>
                             </div>
                         </form>

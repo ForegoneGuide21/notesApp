@@ -26,6 +26,7 @@ a {
     width: 40px !important;
     height: 40px !important;
     margin-left: 70px !important;
+    right: 0 !important;
 }
 
 @media (max-width: 10px) {
