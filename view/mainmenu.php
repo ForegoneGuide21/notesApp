@@ -32,19 +32,18 @@ if ($_SESSION["user"] == "" && $_SESSION["pass"] == "") {
                         </a>
                     </div>
                 </div>
-                <div class="col-md-8 col-12 mt-2 mt-md-0">
-                    <div class="container-fluid" id="bar">
-                        <form action="" method="post">
-                            <div class="row">
-                                <div class="col-10">
-                                    <input type="search" class="form-control searchbar" id="search1" placeholder="Search" />
-                                </div>
-                                <div class="col-2">
-                                    <input type="submit" class="searchbtn" id="searchBTN" value="">
-                                </div>
+                <div class="col-8">
+                    <form action="" method="post">
+                        <div class="d-flex" id="bar">
+                            <div class="flex-grow-1">
+                                <input type="search" class="form-control searchbar w-100" id="search1" placeholder="Search">
                             </div>
-                        </form>
-                    </div>
+                            <div class="ms-2">
+                                <button type="submit" class="btn searchbtn" id="searchBTN">
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-2" id="displayUser">
                     <h3>Welcome
@@ -56,12 +55,12 @@ if ($_SESSION["user"] == "" && $_SESSION["pass"] == "") {
             </div>
             <div class="row">
                 <div class="col-2">
-                    <form action="noteEditor.php" method="post">
+                    <form action="noteCreate.php" method="post" id="createNoteForm">
                         <div id="zoomContent">
                             <input type="hidden" name="userid" id="userid" value="<?php echo $_SESSION['id']; ?>">
-                            <input type="submit" id="zoomButton">
-                            <img src="../img/notesCreate.png" alt="notesCreate" height="200" width="200">
-                            </input>
+                            <button type="submit" id="zoomButton" class="border-0 bg-transparent p-0">
+                                <img src="../img/notesCreate.png" alt="notesCreate" height="200" width="200">
+                            </button>
                             <script src="../JS/zoom.js"></script>
                         </div>
                     </form>
@@ -89,6 +88,7 @@ if ($_SESSION["user"] == "" && $_SESSION["pass"] == "") {
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
         <script src="../JS/searchbar.js"></script>
+
     </body>
 
     </html>

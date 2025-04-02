@@ -1,11 +1,18 @@
-document.getElementById('zoomButton').addEventListener('click', function() {
-    const content = document.getElementById('zoomContent');
-    content.classList.add('zoomed');
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('createNoteForm');
+  const zoomButton = document.getElementById('zoomButton');
+  const zoomContent = document.getElementById('zoomContent');
   
-    // Redirect to another website after the zoom-in effect
-    setTimeout(function() {
-      //window.open('https:snapchat.com', '_blank');
-      content.classList.remove('zoomed');
-    }, 1000); // Match the duration of the CSS transition
+  form.addEventListener('submit', function(e) {
+      e.preventDefault(); // Stop immediate form submission
+      
+      // Apply zoom effect
+      zoomContent.classList.add('zoomed');
+      
+      // Submit form after animation completes
+      setTimeout(() => {
+          zoomContent.classList.remove('zoomed');
+          form.submit();
+      }, 1000); // Match this duration with your CSS transition
   });
-
+});
