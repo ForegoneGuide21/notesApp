@@ -12,12 +12,14 @@ class ControllerNote{
         }
     }
 
-    public function _ControllerGetNoteInfo($idnote): array{
+    public function _ControllerGetNoteInfo($iduser): array{
         try {
             $obj = new ModelNote();
-            return $obj->_ModelGetNoteInfo($idnote);
+            return $obj->_ModelGetNoteInfo($iduser);
         } catch (Exception $e) {
             throw $e;
         }
     }
+
+    
 }

@@ -3,6 +3,12 @@ session_start();
 if ($_SESSION["user"] == "" && $_SESSION["pass"] == "") {
     header('Location:../login.php?err=3');
 } else {
+
+    include_once '../controller/ControllerNote.php';
+
+    $note = new ControllerNote();
+    $listofNotes = $note->_ControllerGetNoteInfo($_SESSION['id']);
+
     ?>
 
     <html lang="en">
@@ -55,7 +61,7 @@ if ($_SESSION["user"] == "" && $_SESSION["pass"] == "") {
             </div>
             <div class="row">
                 <div class="col-2">
-                    <form action="noteCreate.php" method="post" id="createNoteForm">
+                    <form action="ControllerNoteCreator.php" method="post" id="createNoteForm">
                         <div id="zoomContent">
                             <input type="hidden" name="userid" id="userid" value="<?php echo $_SESSION['id']; ?>">
                             <button type="submit" id="zoomButton" class="border-0 bg-transparent p-0">
@@ -70,18 +76,32 @@ if ($_SESSION["user"] == "" && $_SESSION["pass"] == "") {
                 </div>
             </div>
             <div class="row">
-                <div class="col-3" style="background-color:black">
-                    notes-1
-                </div>
-                <div class="col-3" style="background-color:gray">
+                <?php
+                foreach ($listofNotes as $row) {
+                    ?>
+                    <div class="col-3" style="">
+                        <form action="noteCreate.php" method="post">
+                            <input type="hidden" id="noteID" name="noteID" value="<?php echo $row['note_idnotes']; ?>">
+                            <input type="hidden" name="userid" id="userid" value="<?php echo $_SESSION['id']; ?>">
+                            <button type="submit">
+                            <?php echo $row['note_idnotes']; ?>
+                            </button>
+                        </form>
+
+                    </div>
+                    <!--div class="col-3" style="background-color:gray">
                     notes-2
-                </div>
+                </!div>
                 <div class="col-3" style="background-color:brown">
                     notes-3
                 </div>
-                <div class="col-3" style="background-color:green">
+                <div-- class="col-3" style="background-color:green">
                     notes-4
-                </div>
+                </div-->
+
+                    <?php
+                }
+                ?>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
