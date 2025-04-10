@@ -6,7 +6,7 @@ $noteController = new ControllerNote();
 
 
 //FUTURE FIX: MAKE SURE TO USE A SUB CONTROLLER TO CONTROLL THE REGITARION BECAUSE EACH REFRESH MAKE A NEW NOTE AND IT WILL BE A MESS
-$listofInfo = $noteController->_ControllerCreateNote($_POST['userid']);
+$listofInfo = $noteController->_ControllerSpecificNote($_POST['userid'], $_SESSION['notesession']);
 
 
 

@@ -61,15 +61,15 @@ if ($_SESSION["user"] == "" && $_SESSION["pass"] == "") {
             </div>
             <div class="row">
                 <div class="col-2">
-                    <form action="ControllerNoteCreator.php" method="post" id="createNoteForm">
-                        <div id="zoomContent">
-                            <input type="hidden" name="userid" id="userid" value="<?php echo $_SESSION['id']; ?>">
-                            <button type="submit" id="zoomButton" class="border-0 bg-transparent p-0">
-                                <img src="../img/notesCreate.png" alt="notesCreate" height="200" width="200">
-                            </button>
-                            <script src="../JS/zoom.js"></script>
-                        </div>
-                    </form>
+                    <form action="../controller/ControllerNoteCreator.php" method="post" id="createNoteForm">
+                            <div id="zoomContent">
+                                <input type="hidden" name="userid" id="userid" value="<?php echo $_SESSION['id']; ?>">
+                                <button type="submit" id="zoomButton" class="border-0 bg-transparent p-0">
+                                    <img src="../img/notesCreate.png" alt="notesCreate" height="200" width="200">
+                                </button>
+                                <script src="../JS/zoom.js"></script>
+                            </div>
+                        </form>
                 </div>
                 <div class="col-10" style="background-color:orange">
                     checklist
@@ -81,10 +81,10 @@ if ($_SESSION["user"] == "" && $_SESSION["pass"] == "") {
                     ?>
                     <div class="col-3" style="">
                         <form action="noteCreate.php" method="post">
-                            <input type="hidden" id="noteID" name="noteID" value="<?php echo $row['note_idnotes']; ?>">
+                            <input type="hidden" id="noteid" name="noteid" value="<?php echo $row['note_idnotes']; ?>">
                             <input type="hidden" name="userid" id="userid" value="<?php echo $_SESSION['id']; ?>">
                             <button type="submit">
-                            <?php echo $row['note_idnotes']; ?>
+                                <?php echo $row['note_idnotes']; ?>
                             </button>
                         </form>
 

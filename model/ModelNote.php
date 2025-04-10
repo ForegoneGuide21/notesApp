@@ -72,8 +72,7 @@ class ModelNote
 
         // Step 4: Retrieve full information about the note and its user
         try {
-            $query = $obj->prepare(' 3 
-            SELECT * 
+            $query = $obj->prepare('SELECT * 
             FROM noteMng AS nm 
             INNER JOIN userT AS u ON nm.user_iduser = u.iduser 
             INNER JOIN note AS n ON nm.note_idnotes = n.idnotes
@@ -129,7 +128,58 @@ class ModelNote
         }
     }
 
+    public function _ModelSpecificNote($userId, $noteId)
+    {
 
+
+        try {
+            //Connect to the database
+            $obj = connection::singleton();
+
+            //Prepare the query
+            $query = $obj->prepare('SELECT * 
+        FROM noteMng AS nm 
+        INNER JOIN userT AS u ON nm.user_iduser = u.iduser 
+        INNER JOIN note AS n ON nm.note_idnotes = n.idnotes
+        WHERE nm.user_iduser = ? AND nm.note_idnotes = ?');
+
+            //Bind the parameters
+            $query->bindParam(1, $userId);
+            $query->bindParam(2, $noteId);
+
+            //Execute the query
+            $query->execute();
+
+            //Fetch the results
+            $vector = $query->fetchAll();
+
+            //Close the connection
+            $query = null;
+
+            //Return the results
+            return $vector;
+
+        } catch (Exception $e) {
+            throw new Exception("Error retrieving note details: " . $e->getMessage());
+        }
+    }
+
+    public function _RetrieveLastNote(){
+        try {
+            $obj = connection::singleton();
+            $query = $obj->prepare('SELECT idnotes FROM note ORDER BY idnotes DESC LIMIT 1;');
+            $query->execute();
+
+            $vector = $query->fetchAll();
+            $query = null;
+
+            return $vector;
+
+
+        } catch (Exception $e) {
+            throw new Exception("Error retrieving note ID: " . $e->getMessage());
+        }
+    }
 
 
 

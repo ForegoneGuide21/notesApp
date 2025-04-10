@@ -21,5 +21,23 @@ class ControllerNote{
         }
     }
 
+    public function _ControllerSpecificNote($iduser, $noteId): array{
+        try {
+            $obj = new ModelNote();
+            return $obj->_ModelSpecificNote($iduser, $noteId);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function _ControllerGetLastNoteId(): array{
+        try {
+            $obj = new ModelNote();
+            return $obj->_RetrieveLastNote();
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
     
 }
