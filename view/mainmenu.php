@@ -80,7 +80,7 @@ if ($_SESSION["user"] == "" && $_SESSION["pass"] == "") {
                 foreach ($listofNotes as $row) {
                     ?>
                     <div class="col-3" style="">
-                        <form action="noteCreate.php" method="post">
+                        <form action="noteEdit.php" method="post">
                             <input type="hidden" id="noteid" name="noteid" value="<?php echo $row['note_idnotes']; ?>">
                             <input type="hidden" name="userid" id="userid" value="<?php echo $_SESSION['id']; ?>">
                             <button type="submit">
