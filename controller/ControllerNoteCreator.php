@@ -8,7 +8,7 @@ $Note->_ControllerCreateNote($_POST['userid']);
 
 $UserID = $_POST['userid'];
 
-$Data = $Note->_ControllerGetLastNoteId();
+$data = $Note->_ControllerGetLastNoteId();
 foreach($data as $row){
     $NoteID = $row['idnotes'];
     break;
