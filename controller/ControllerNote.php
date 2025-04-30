@@ -42,8 +42,21 @@ class ControllerNote{
     public function _ControllerUpdateNote($idnotes, $title, $notescontent){
         try {
             $obj = new ModelNote();
-            return $obj->_ModelUpdateNote($idnotes, $title, $notescontent);
+            $result = $obj->_ModelUpdateNote($idnotes, $title, $notescontent);
+            if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+                header('Content-Type:application/json');
+                echo json_encode(['success'=>$result]);
+                exit;
+            }
+            return $result;
+            
+            
         } catch (Exception $th) {
+            if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+                header('Content-Type:application/json');
+                echo json_encode(['success'=>false, 'error' =>$th->getMessage()]);
+                exit;
+            }
             throw $th;
         }
     }
