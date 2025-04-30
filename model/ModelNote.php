@@ -181,6 +181,19 @@ class ModelNote
         }
     }
 
+    public function _ModelUpdateNote($idnotes, $title, $notescontent){
+        try {
+            $obj = connection::singleton();
+            $query = $obj->prepare('UPDATE note SET title = :title, notescontent= :notescontent WHERE idnotes = :idnotes');
+            $query->bindParam(':title', $title);
+            $query->bindParam(':notescontent', $notescontent);
+            $query->bindParam(':idnotes', $idnotes);
+            echo $query->execute();
+        } catch (Exception $th) {
+            throw $th;
+        }
+    }
+
 
 
 

@@ -87,7 +87,11 @@ $listofInfo = $noteController->_ControllerSpecificNote($_POST['userid'], $_POST[
 
                 </div>
 
-                <div class="col-6 paper">
+                <div class="col-6 paper"> 
+                    <textarea name="inputArea" id="inputArea" class = "autoUpdateField" data-field="content"> 
+                        <?=htmlspecialchars($content['content'])?>
+                        
+                    </textarea>
                     <?php
                     echo "" . $row["notescontent"] . "";
                     ?>
@@ -114,3 +118,5 @@ $listofInfo = $noteController->_ControllerSpecificNote($_POST['userid'], $_POST[
 <?php
 
 ?>
+
+UPDATE `note` SET `title`= ?, `notescontent`= ? WHERE idnotes = ?;

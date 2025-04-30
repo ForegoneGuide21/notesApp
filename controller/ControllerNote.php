@@ -39,5 +39,13 @@ class ControllerNote{
         }
     }
 
+    public function _ControllerUpdateNote($idnotes, $title, $notescontent){
+        try {
+            $obj = new ModelNote();
+            return $obj->_ModelUpdateNote($idnotes, $title, $notescontent);
+        } catch (Exception $th) {
+            throw $th;
+        }
+    }
     
 }
