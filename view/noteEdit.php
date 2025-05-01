@@ -87,17 +87,19 @@ $listofInfo = $noteController->_ControllerSpecificNote($_POST['userid'], $_POST[
 
                 </div>
 
-                <div class="col-6 paper"> 
-                    <textarea name="inputArea" id="inputArea" class = "autoUpdateField" data-field="content"> 
-                        <?=htmlspecialchars($content['content'])?>
-                        <?php
-                        echo "" . $row["notescontent"] . "";
-                        ?>
-                    </textarea>
+                <div class="col-6 paper">
+                    <textarea name="inputArea" id="inputArea" class="autoUpdateField" data-field="content">
+                            <?= htmlspecialchars($row["notescontent"]) ?>
+                            <?php
+                            echo "" . $row["notescontent"] . "";
+                            ?>
+                        </textarea>
                     <?php
                     echo "" . $row["notescontent"] . "";
                     ?>
                 </div>
+                <!-- Status message element -->
+                <div id="status" style="position: fixed; bottom: 20px; right: 20px;"></div>
 
                 <div class="col-3 bg">
 
@@ -113,6 +115,14 @@ $listofInfo = $noteController->_ControllerSpecificNote($_POST['userid'], $_POST[
 
     </script>
 
+    <script>
+        //Passes PHP variables to JS
+        window.noteData = {
+            noteid: <?= json_encode($_POST['noteid'] ?? 0) ?>,
+            userid: <?= json_encode($_POST['userid'] ?? 0) ?>
+        };
+    </script>
+    <script src="../JS/autoupdate.js"></script>
 </body>
 
 </html>
@@ -120,5 +130,3 @@ $listofInfo = $noteController->_ControllerSpecificNote($_POST['userid'], $_POST[
 <?php
 
 ?>
-
-UPDATE `note` SET `title`= ?, `notescontent`= ? WHERE idnotes = ?;
