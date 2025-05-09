@@ -87,27 +87,19 @@ $listofInfo = $noteController->_ControllerSpecificNote($_POST['userid'], $_POST[
                 </div>
 
                 <div class="col-6 paper">
-                    <textarea name="inputArea" id="inputArea" class="autoUpdateField" data-field="content">
-                                    <?php
-                                    echo "" . $row["notescontent"] . "";
-                                    ?>
-                                </textarea>
+                    <form action="../controller/ControllerNoteEdit.php" method="POST">
+                        <div class="col-6 paper">
+                            <textarea name="content" id="content" class="autoUpdateField" data-field="content" rows="5"
+                                cols="40"><?php echo $row["notescontent"]; ?></textarea>
+                        </div>
+                        <input type="hidden" name="noteid" id="noteid" value="<?php echo $_POST['noteid']; ?>">
+                        <input type="hidden" name="userid" id="userid" value="<?php echo $_POST['userid']; ?>">
+                        <input type="hidden" name="title" id="title" value="<?php echo $row["title"]; ?>">
+                        <input type="submit" id="submit" name="submit" value="Save" class="btn btn-primary">
+                    </form>
                 </div>
                 <!-- Status message element -->
-                <form action="../controller/ControllerNoteEdit.php" method="POST">
-                    <div class="col-6 paper">
-                        <textarea name="content" id="content" class="autoUpdateField" data-field="content" rows="5"
-                            cols="40">
-                                    <?php
-                                    echo "" . $row["notescontent"] . "";
-                                    ?>
-                                </textarea>
-                    </div>
-                    <input type="hidden" name="noteid" id="noteid" value="<?php $_POST['noteid'] ?>">
-                    <input type="hidden" name="userid" id="userid" value="<?php $_POST['userid'] ?>">
-                    <input type="hidden" name="title" id="title" value="<?php $row["title"] ?>">
-                    <input type="submit" id="submit" name="submit" value="Save" class="btn btn-primary">
-                </form>
+
             </div>
 
         </div>
