@@ -4,7 +4,6 @@ session_start();
 include_once '../controller/ControllerNote.php';
 $noteController = new ControllerNote();
 
-
 //FUTURE FIX: MAKE SURE TO USE A SUB CONTROLLER TO CONTROLL THE REGITARION BECAUSE EACH REFRESH MAKE A NEW NOTE AND IT WILL BE A MESS
 $listofInfo = $noteController->_ControllerSpecificNote($_POST['userid'], $_POST['noteid']);
 
@@ -89,18 +88,26 @@ $listofInfo = $noteController->_ControllerSpecificNote($_POST['userid'], $_POST[
 
                 <div class="col-6 paper">
                     <textarea name="inputArea" id="inputArea" class="autoUpdateField" data-field="content">
-                            <?= htmlspecialchars($row["notescontent"]) ?>
-                        </textarea>
-                    <?php
-                    echo "" . $row["notescontent"] . "";
-                    ?>
+                                    <?php
+                                    echo "" . $row["notescontent"] . "";
+                                    ?>
+                                </textarea>
                 </div>
                 <!-- Status message element -->
-                <div id="status" style="position: fixed; bottom: 20px; right: 20px;"></div>
-
-                <div class="col-3 bg">
-
-                </div>
+                <form action="../controller/ControllerNoteEdit.php" method="POST">
+                    <div class="col-6 paper">
+                        <textarea name="content" id="content" class="autoUpdateField" data-field="content" rows="5"
+                            cols="40">
+                                    <?php
+                                    echo "" . $row["notescontent"] . "";
+                                    ?>
+                                </textarea>
+                    </div>
+                    <input type="hidden" name="noteid" id="noteid" value="<?php $_POST['noteid'] ?>">
+                    <input type="hidden" name="userid" id="userid" value="<?php $_POST['userid'] ?>">
+                    <input type="hidden" name="title" id="title" value="<?php $row["title"] ?>">
+                    <input type="submit" id="submit" name="submit" value="Save" class="btn btn-primary">
+                </form>
             </div>
 
         </div>
@@ -111,19 +118,6 @@ $listofInfo = $noteController->_ControllerSpecificNote($_POST['userid'], $_POST[
     <script src="../JS/icon.js">
 
     </script>
-
-    <script>
-        //Passes PHP variables to JS
-        window.noteData = {
-            noteid: <?= json_encode($_POST['noteid'] ?? 0) ?>,
-            userid: <?= json_encode($_POST['userid'] ?? 0) ?>
-        };
-    </script>
-    <script src="../JS/autoupdate.js"></script>
 </body>
 
 </html>
-
-<?php
-
-?>
