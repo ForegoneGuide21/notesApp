@@ -1,13 +1,25 @@
 <?php
 session_start();
 include_once 'ControllerNote.php';
-$obj = new ControllerNote();
-$UserID = $_POST['userid'];
-$NoteID = $_POST['noteid'];
-$Title = $_POST['title'];
-$Content = $_POST['content'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $obj = new ControllerNote();
+    $UserID = $_POST['userid'];
+    $NoteID = $_POST['noteid'];
+    $Title = $_POST['title'];
+    $Content = $_POST['content'];
 
-$obj->_ControllerUpdateNote($NoteID, $Title, $Content);
+    $result = $obj->_ControllerUpdateNote($NoteID, $Title, $Content);
+    
+    // If it's an AJAX request, return JSON response
+    if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => $result,
+            'message' => $result ? 'Note updated successfully' : 'Update failed',
+            'timestamp' => date('H:i:s')
+        ]);
+        exit;
+    }
 
 ?>
 
@@ -21,7 +33,7 @@ $obj->_ControllerUpdateNote($NoteID, $Title, $Content);
 
 <body>
     <form id="redirectForm" action="../view/noteEdit.php" method="POST">
-        <input type="hidden" name="userid" value="<?php echo htmlspecialchars($UserID); ?>">
+        <input type="hidden" name="userid" value="<?php echo htmlspecialchars($UserID); ?>">   <!-- sends (htmlspecialchars) -->
         <input type="hidden" name="noteid" value="<?php echo htmlspecialchars($NoteID); ?>">
     </form>
     <script>
@@ -30,3 +42,6 @@ $obj->_ControllerUpdateNote($NoteID, $Title, $Content);
 </body>
 
 </html>
+<?php
+}
+?>

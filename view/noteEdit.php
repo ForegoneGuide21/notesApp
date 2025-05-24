@@ -30,8 +30,6 @@ $listofInfo = $noteController->_ControllerSpecificNote($_POST['userid'], $_POST[
     foreach ($listofInfo as $row) {
         ?>
 
-
-
         <div class="container-fluid">
             <div class="row">
                 <div class="col-2 title text-center" style="background-color: aliceblue;">
@@ -87,7 +85,7 @@ $listofInfo = $noteController->_ControllerSpecificNote($_POST['userid'], $_POST[
                 </div>
 
                 <div class="col-6 paper">
-                    <form action="../controller/ControllerNoteEdit.php" method="POST">
+                    <form id="noteForm" action="../controller/ControllerNoteEdit.php" method="POST">
                         <div class="col-6 paper">
                             <textarea name="content" id="content" class="autoUpdateField" data-field="content" rows="5"
                                 cols="40"><?php echo $row["notescontent"]; ?></textarea>
@@ -97,6 +95,87 @@ $listofInfo = $noteController->_ControllerSpecificNote($_POST['userid'], $_POST[
                         <input type="hidden" name="title" id="title" value="<?php echo $row["title"]; ?>">
                         <input type="submit" id="submit" name="submit" value="Save" class="btn btn-primary">
                     </form>
+
+                    <script>
+
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const contentTextarea = document.getElementById('content');
+                            const noteForm = document.getElementById('noteForm');
+                            let debounceTimer;
+                            let isSubmitting = false;
+
+                            // Auto-save on content change
+                            contentTextarea.addEventListener('input', function () {
+                                clearTimeout(debounceTimer);
+                                debounceTimer = setTimeout(autoSaveNote, 1000); // Save 1 second after typing stops
+                            });
+
+                            function autoSaveNote() {
+                                if (isSubmitting) return;
+
+                                isSubmitting = true;
+                                const formData = new FormData(noteForm);
+
+                                fetch(noteForm.action, {
+                                    method: 'POST',
+                                    body: formData,
+                                    headers: {
+                                        'X-Requested-With': 'XMLHttpRequest' // Identify as AJAX request
+                                    }
+                                })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        console.log('Auto-save successful:', data);
+                                        showStatusMessage('Auto-saved at ' + data.timestamp, 'success');
+                                    })
+                                    .catch(error => {
+                                        console.error('Auto-save error:', error);
+                                        showStatusMessage('Auto-save failed', 'error');
+                                    })
+                                    .finally(() => {
+                                        isSubmitting = false;
+                                    });
+                            }
+
+                            function showStatusMessage(message, type) {
+                                // Remove any existing status message
+                                const existingStatus = document.getElementById('autoSaveStatus');
+                                if (existingStatus) {
+                                    existingStatus.remove();
+                                }
+
+                                // Create and show new status message
+                                const statusDiv = document.createElement('div');
+                                statusDiv.id = 'autoSaveStatus';
+                                statusDiv.textContent = message;
+                                statusDiv.style.position = 'fixed';
+                                statusDiv.style.bottom = '20px';
+                                statusDiv.style.right = '20px';
+                                statusDiv.style.padding = '10px';
+                                statusDiv.style.backgroundColor = type === 'success' ? '#d4edda' : '#f8d7da';
+                                statusDiv.style.color = type === 'success' ? '#155724' : '#721c24';
+                                statusDiv.style.borderRadius = '5px';
+                                statusDiv.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
+                                statusDiv.style.zIndex = '1000';
+
+                                document.body.appendChild(statusDiv);
+
+                                // Auto-hide after 3 seconds
+                                setTimeout(() => {
+                                    statusDiv.style.opacity = '0';
+                                    setTimeout(() => statusDiv.remove(), 500);
+                                }, 3000);
+                            }
+
+                            // Handle manual form submission (prevent page reload)
+                            noteForm.addEventListener('submit', function (e) {
+                                e.preventDefault();
+                                autoSaveNote();
+                            });
+                        });
+                    </script>
+
+
                 </div>
                 <!-- Status message element -->
 

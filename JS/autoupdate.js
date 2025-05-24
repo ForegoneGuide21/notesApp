@@ -1,97 +1,47 @@
-//Leon Thomas - MUTT
-//Drake - NOKIA
-//d4vid - Feel It
-//tyler, the creator - SWEET / I THOUGHT YOU WANTED TO DANCE
-//Imogen Heap - Headlock
-//NLE CHOPPA - Or What ft. 41 (Orchestra Mix)
-//Civ - 1AM
-//FIFTY FIFTY - Cupid (Twin Version)
-//Holy Fuck - "Tom Tom"
-//
+let lastSentMessage = '';
+let debounceTimer;
 
-document.addEventListener("DOMContentLoaded", function() {
-  const textarea = document.getElementById("inputArea");
-  const status = document.getElementById("status");
+//DOMContentLoaded event to ensure the DOM is fully loaded before attaching event listeners
+document.addEventListener('DOMContentLoaded', function() {
+  //Retrieve the current value of the textarea
+  const textarea = document.getElementById('content');
 
-  //Function to prevent rapid firing of the update function
-  function debounce(func, wait){
-    let timeout;
-        return function() {
-            const context = this;
-            const args = arguments;
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func.apply(context, args), wait);
-        };
-  }
+  //To make a function that will update each second 
+  textarea.addEventListener('input', function() {
+    //Clear the timer (reset the time)
+    clearTimeout(debounceTimer);
 
-  const updateNote = debounce(function(){
-    const currentTitle = document.querySelector('.title').textContent.trim();
+    //Set the timer for the update and this is for 1 sec (1000 milliseconds)
+    debounceTimer = setTimeout(function() {
+      const currentMessage = textarea.value.trim();
 
-    //Prepare the data to match my controllers parameters
-    const postData = {
-      idnotes: window.noteData.noteid,
-      title: currentTitle,
-      notescontent: textarea.value
-    };
-
-    status.textContent = 'Saving...';
-    status.style.display = 'block';
-    status.style.color = 'blue';
-    status.style.fontSize = '8px';
-    status.style.border = '1px solid black';
-
-    //Send to our ControllerNote.php by using AJAX
-    fetch('../controller/ControllerNote.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type' : 'application/x-www-form-urlencoded',
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-
-      body: new URLSearchParams(postData).toString()
-    })
-    .then(response => {
-      if (!response.ok) throw new Error('Network response was not ok');
-      return response.json();
-    })
-    .then(data => {
-      if (data.success) {
-        status.textContent = 'Saved!';
-        status.style.color = 'green';
-        status.style.fontSize = '8px';
-        status.style.border = '1px solid black';
-
-        textarea.defaultValue = textarea.value;
-      } else {
-        throw new Error('Error saving note: ' + data.error);
+      if (currentMessage && currentMessage !== lastSentMessage) {
+        sendMessage(currentMessage);
+        lastSentMessage = currentMessage;
       }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      status.textContent = 'Error!';
-      status.style.color = 'red';
-      status.style.fontSize = '8px';
-      status.style.border = '1px solid black';
-    })
-    .finally(() => {
-      setTimeout(() => {
-        status.style.display = 'none';
-      }, 2000);
-    });
-  }, 1000);
-
-  textarea.addEventListener('input', updateNote);
-  
-  //Warning if it did not save changes o unsaved changes
-  window.addEventListener('beforeunload', function(e) {
-    if (textarea.value !== textarea.defaultValue) {
-      e.preventDefault();
-      e.returnValue = "You have unsaved changes. Are you sure you want to leave?";
-      return e.returnValue
-    }
+    }, 1000);
   });
-
-  //Set default initial values
-  textarea.defaultValue = textarea.value;
-
 });
+
+function sendMessage(message) {
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', '..controller/ControllerNoteEdit.php', true);
+  xhr.setRequestHeader('Content-Type', 'http://localhost/notesapp/view/noteEdit.php');
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        updateStatus('Last sent: ' + new Date().toLocaleTimeString());
+        console.log('Sent: ' + message);
+      } else{
+        updateStatus('Error sending message');
+        console.error('Error', xhr.responseText);
+      }
+    }
+  };
+  xhr.send('message= ' + encodeURIComponent(message));
+}
+
+function updateStatus(text){
+  document.getElementById('status').textContent = 'Status' + text;
+}
