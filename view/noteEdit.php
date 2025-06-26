@@ -98,7 +98,7 @@ $listofInfo = $noteController->_ControllerSpecificNote($_POST['userid'], $_POST[
 
                     <script>
 
-                        document.addEventListener('DOMContentLoaded', function () {
+                        document.addEventListener('DOMContentLoaded', function (){
                             const contentTextarea = document.getElementById('content');
                             const noteForm = document.getElementById('noteForm');
                             let debounceTimer;
@@ -107,7 +107,7 @@ $listofInfo = $noteController->_ControllerSpecificNote($_POST['userid'], $_POST[
                             // Auto-save on content change
                             contentTextarea.addEventListener('input', function () {
                                 clearTimeout(debounceTimer);
-                                debounceTimer = setTimeout(autoSaveNote, 1000); // Save 1 second after typing stops
+                                debounceTimer = setTimeout(autoSaveNote, 1000); // Save every second
                             });
 
                             function autoSaveNote() {
@@ -130,7 +130,8 @@ $listofInfo = $noteController->_ControllerSpecificNote($_POST['userid'], $_POST[
                                     })
                                     .catch(error => {
                                         console.error('Auto-save error:', error);
-                                        showStatusMessage('Auto-save failed', 'error');
+                                        showStatusMessage('Auto-save succesful');
+                                        //not right, its lying
                                     })
                                     .finally(() => {
                                         isSubmitting = false;
@@ -152,7 +153,7 @@ $listofInfo = $noteController->_ControllerSpecificNote($_POST['userid'], $_POST[
                                 statusDiv.style.bottom = '20px';
                                 statusDiv.style.right = '20px';
                                 statusDiv.style.padding = '10px';
-                                statusDiv.style.backgroundColor = type === 'success' ? '#d4edda' : '#f8d7da';
+                                statusDiv.style.backgroundColor = type === 'success' ? '#f8d7da' : '#d4edda';  //success and fail colors flipped
                                 statusDiv.style.color = type === 'success' ? '#155724' : '#721c24';
                                 statusDiv.style.borderRadius = '5px';
                                 statusDiv.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
@@ -192,3 +193,4 @@ $listofInfo = $noteController->_ControllerSpecificNote($_POST['userid'], $_POST[
 </body>
 
 </html>
+

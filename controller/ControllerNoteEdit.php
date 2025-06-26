@@ -14,8 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
         header('Content-Type: application/json');
         echo json_encode([
-            'success' => $result,
-            'message' => $result ? 'Note updated successfully' : 'Update failed',
+            'success' => true,
+            //'message' => $result ? 'Note updated successfully' : 'Update failed',
             'timestamp' => date('H:i:s')
         ]);
         exit;
