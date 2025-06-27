@@ -1,196 +1,157 @@
 <?php
 session_start();
-
 include_once '../controller/ControllerNote.php';
 $noteController = new ControllerNote();
-
-//FUTURE FIX: MAKE SURE TO USE A SUB CONTROLLER TO CONTROLL THE REGITARION BECAUSE EACH REFRESH MAKE A NEW NOTE AND IT WILL BE A MESS
 $listofInfo = $noteController->_ControllerSpecificNote($_POST['userid'], $_POST['noteid']);
-
-
-
-
 ?>
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note Editor</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/noteEditor.css" type="text/css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
 
-
-
 <body>
-    <?php
-    foreach ($listofInfo as $row) {
-        ?>
+    <?php foreach ($listofInfo as $row): ?>
+        <div class="editor-header">
+            <div class="d-flex align-items-center gap-3">
+                <h1 class="note-title"><?php echo htmlspecialchars($row["title"]); ?></h1>
+                <span class="note-date"><?php echo date('F j, Y, g:i a', strtotime($row["created"])); ?></span>
+            </div>
 
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-2 title text-center" style="background-color: aliceblue;">
-                    <?php
-                    echo "" . $row["title"] . "";
-                    ?>
+            <div class="d-flex align-items-center gap-3">
+                    <button type="submit" id="submit" name="submit" class="save-btn">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+
+                <div class="user-avatar" title="<?php echo htmlspecialchars($_SESSION['user']); ?>">
+                    <?php echo strtoupper(substr($_SESSION['user'], 0, 1)); ?>
                 </div>
+            </div>
+        </div>
+        <div class="editor-container">
 
-                <div class="col-8 date" style="background-color: red;">
-                    <?php
-                    echo "" . $row["created"] . "";
-                    ?>
-                </div>
 
-                <div class="col-1 share" style="background-color: yellow;">
-                    <?php
-                    ?>
-                </div>
-
-                <div class="col-1 user d-flex flex-column justify-content-center align-items-center"
-                    style="background-color: orange;">
-                    <div class="text-center align-content-center icon">
-                        <p class="h5 mb-0" id="username">
-                            <?php
-                            echo $_SESSION['user'];
-                            ?>
-                        </p>
-                    </div>
-
-                    <div class="text-center">
-                        <p id="username">
-                            <?php
-                            echo $_SESSION['user'];
-                            ?>
-                        </p>
-
-                    </div>
-
-                </div>
+            <div class="toolbar">
+                <button type="button" class="tool-btn" title="Bold"><i class="fas fa-bold"></i></button>
+                <button type="button" class="tool-btn" title="Italic"><i class="fas fa-italic"></i></button>
+                <button type="button" class="tool-btn" title="Underline"><i class="fas fa-underline"></i></button>
+                <button type="button" class="tool-btn" title="Heading"><i class="fas fa-heading"></i></button>
+                <button type="button" class="tool-btn" title="List"><i class="fas fa-list-ul"></i></button>
+                <button type="button" class="tool-btn" title="Numbered List"><i class="fas fa-list-ol"></i></button>
+                <button type="button" class="tool-btn" title="Link"><i class="fas fa-link"></i></button>
+                <button type="button" class="tool-btn" title="Image"><i class="fas fa-image"></i></button>
+                <button type="button" class="tool-btn" title="Code"><i class="fas fa-code"></i></button>
+                <button type="button" class="tool-btn" title="Table"><i class="fas fa-table"></i></button>
 
             </div>
 
-            <div class="row">
-                <div class="col-12 tools">
-                    tools
-                </div>
+            <div class="editor-content">
+                <form id="noteForm" action="../controller/ControllerNoteEdit.php" method="POST">
+                    <textarea name="content" id="content" class="note-content autoUpdateField" data-field="content"><?php
+                    echo htmlspecialchars($row["notescontent"]);
+                    ?></textarea>
 
-            </div>
+                    <input type="hidden" name="noteid" id="noteid"
+                        value="<?php echo htmlspecialchars($_POST['noteid']); ?>">
+                    <input type="hidden" name="userid" id="userid"
+                        value="<?php echo htmlspecialchars($_POST['userid']); ?>">
+                    <input type="hidden" name="title" id="title" value="<?php echo htmlspecialchars($row["title"]); ?>">
 
-            <div class="row">
-                <div class="col-3 bg">
-
-                </div>
-
-                <div class="col-6 paper">
-                    <form id="noteForm" action="../controller/ControllerNoteEdit.php" method="POST">
-                        <div class="col-6 paper">
-                            <textarea name="content" id="content" class="autoUpdateField" data-field="content" rows="5"
-                                cols="40"><?php echo $row["notescontent"]; ?></textarea>
-                        </div>
-                        <input type="hidden" name="noteid" id="noteid" value="<?php echo $_POST['noteid']; ?>">
-                        <input type="hidden" name="userid" id="userid" value="<?php echo $_POST['userid']; ?>">
-                        <input type="hidden" name="title" id="title" value="<?php echo $row["title"]; ?>">
-                        <input type="submit" id="submit" name="submit" value="Save" class="btn btn-primary">
-                    </form>
-
-                    <script>
-
-                        document.addEventListener('DOMContentLoaded', function (){
-                            const contentTextarea = document.getElementById('content');
-                            const noteForm = document.getElementById('noteForm');
-                            let debounceTimer;
-                            let isSubmitting = false;
-
-                            // Auto-save on content change
-                            contentTextarea.addEventListener('input', function () {
-                                clearTimeout(debounceTimer);
-                                debounceTimer = setTimeout(autoSaveNote, 1000); // Save every second
-                            });
-
-                            function autoSaveNote() {
-                                if (isSubmitting) return;
-
-                                isSubmitting = true;
-                                const formData = new FormData(noteForm);
-
-                                fetch(noteForm.action, {
-                                    method: 'POST',
-                                    body: formData,
-                                    headers: {
-                                        'X-Requested-With': 'XMLHttpRequest' // Identify as AJAX request
-                                    }
-                                })
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        console.log('Auto-save successful:', data);
-                                        showStatusMessage('Auto-saved at ' + data.timestamp, 'success');
-                                    })
-                                    .catch(error => {
-                                        console.error('Auto-save error:', error);
-                                        showStatusMessage('Auto-save succesful');
-                                        //not right, its lying
-                                    })
-                                    .finally(() => {
-                                        isSubmitting = false;
-                                    });
-                            }
-
-                            function showStatusMessage(message, type) {
-                                // Remove any existing status message
-                                const existingStatus = document.getElementById('autoSaveStatus');
-                                if (existingStatus) {
-                                    existingStatus.remove();
-                                }
-
-                                // Create and show new status message
-                                const statusDiv = document.createElement('div');
-                                statusDiv.id = 'autoSaveStatus';
-                                statusDiv.textContent = message;
-                                statusDiv.style.position = 'fixed';
-                                statusDiv.style.bottom = '20px';
-                                statusDiv.style.right = '20px';
-                                statusDiv.style.padding = '10px';
-                                statusDiv.style.backgroundColor = type === 'success' ? '#f8d7da' : '#d4edda';  //success and fail colors flipped
-                                statusDiv.style.color = type === 'success' ? '#155724' : '#721c24';
-                                statusDiv.style.borderRadius = '5px';
-                                statusDiv.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
-                                statusDiv.style.zIndex = '1000';
-
-                                document.body.appendChild(statusDiv);
-
-                                // Auto-hide after 3 seconds
-                                setTimeout(() => {
-                                    statusDiv.style.opacity = '0';
-                                    setTimeout(() => statusDiv.remove(), 500);
-                                }, 3000);
-                            }
-
-                            // Handle manual form submission (prevent page reload)
-                            noteForm.addEventListener('submit', function (e) {
-                                e.preventDefault();
-                                autoSaveNote();
-                            });
-                        });
-                    </script>
-
-
-                </div>
-                <!-- Status message element -->
-
+                </form>
             </div>
 
         </div>
-        <?php
-    }
-    ?>
+    <?php endforeach; ?>
 
-    <script src="../JS/icon.js">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const contentTextarea = document.getElementById('content');
+            const noteForm = document.getElementById('noteForm');
+            let debounceTimer;
+            let isSubmitting = false;
 
+            // Auto-save on content change
+            contentTextarea.addEventListener('input', function () {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(autoSaveNote, 1000);
+            });
+
+            function autoSaveNote() {
+                if (isSubmitting) return;
+
+                isSubmitting = true;
+                const formData = new FormData(noteForm);
+
+                fetch(noteForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Auto-save successful:', data);
+                        showStatusMessage('Auto-saved successfully at ' + new Date().toLocaleTimeString(), 'success');
+                    })
+                    .catch(error => {
+                        console.error('Auto-save error:', error);
+                        showStatusMessage('Auto-save failed. Please try again.', 'error');
+                    })
+                    .finally(() => {
+                        isSubmitting = false;
+                    });
+            }
+
+            function showStatusMessage(message, type) {
+                // Remove any existing status message
+                const existingStatus = document.getElementById('autoSaveStatus');
+                if (existingStatus) {
+                    existingStatus.remove();
+                }
+
+                // Create and show new status message
+                const statusDiv = document.createElement('div');
+                statusDiv.id = 'autoSaveStatus';
+                statusDiv.className = `status-message status-${type}`;
+                statusDiv.textContent = message;
+                statusDiv.style.opacity = '1';
+
+                document.body.appendChild(statusDiv);
+
+                // Auto-hide after 3 seconds
+                setTimeout(() => {
+                    statusDiv.style.opacity = '0';
+                    setTimeout(() => statusDiv.remove(), 300);
+                }, 3000);
+            }
+
+            // Handle manual form submission
+            noteForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                showStatusMessage('Saving changes...', 'success');
+                autoSaveNote();
+            });
+
+            // Add basic toolbar functionality
+            document.querySelectorAll('.tool-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const command = this.querySelector('i').getAttribute('class').replace('fas fa-', '');
+                    document.execCommand(command, false, null);
+                    contentTextarea.focus();
+                });
+            });
+        });
     </script>
 </body>
 
 </html>
-
