@@ -78,14 +78,15 @@ body {
     overflow: hidden;
 }
 
+
 .create-note-btn {
     background-color: var(--primary-color);
     color: white;
     border: none;
-    border-radius: 10%;
-    width: 60px;
-    height: 60px;
-    font-size: 1.5rem;
+    border-radius: 8px;
+    width: 137px;
+    height: 134px;
+    font-size: 3.5rem;
     position: fixed;
     bottom: 30px;
     right: 30px;

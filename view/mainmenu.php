@@ -71,7 +71,7 @@ if ($_SESSION["user"] == "" && $_SESSION["pass"] == "") {
     </main>
 
     <button class="create-note-btn" data-bs-toggle="modal" data-bs-target="#createNoteModal">
-        <i class="fas fa-plus"></i>
+        <i class="fas fa-plus" id="plus-icon"></i>
     </button>
 
     <!-- Create Note Modal -->
