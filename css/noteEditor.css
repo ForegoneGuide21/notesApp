@@ -132,13 +132,13 @@ body {
 
 .status-success {
     background-color: #d4edda;
-    color: #155724;
+    color: #721c24;
     border-left: 4px solid var(--success-color);
 }
 
 .status-error {
     background-color: #f8d7da;
-    color: #721c24;
+    color: #155724;
     border-left: 4px solid var(--danger-color);
 }
 
